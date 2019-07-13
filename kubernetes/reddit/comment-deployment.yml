@@ -1,0 +1,25 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: comment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: reddit
+      component: comment
+  template:
+    metadata:
+      name: comment-deployment
+      labels:
+        app: reddit
+        component: comment
+    spec:
+      containers:
+      - image: garicshv/comment:logging
+        name: comment
+        env:
+        - name: COMMENT_DATABASE_HOST
+          value: mongo.default.svc.cluster.local
+
